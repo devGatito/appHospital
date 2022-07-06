@@ -14,7 +14,7 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -22,8 +22,7 @@ class AuthScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
-                  Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
+                  Colors.white,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -35,18 +34,19 @@ class AuthScreen extends StatelessWidget {
             children: [
               Container(
                 height: 600,
-                
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
                       height: 200,
-                      margin: EdgeInsets.only(bottom: 5,left:30,right:30),
-                      padding: EdgeInsets.only(left:10,right:10),
+                      margin: EdgeInsets.only(bottom: 5, left: 30, right: 30),
+                      padding: EdgeInsets.only(left: 10, right: 10),
                       child: Image.asset("assets/icon/loginicon.png"),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Container(
                       child: AuthCard(),
                     ),
@@ -109,7 +109,6 @@ class _AuthCardState extends State<AuthCard> {
 
     try {
       if (_authMode == AuthMode.Login) {
-        
         await Provider.of<Auth>(context, listen: false).login(
           _authData['email'],
           _authData['password'],
@@ -117,7 +116,7 @@ class _AuthCardState extends State<AuthCard> {
       }
       Navigator.of(context).pushReplacementNamed('/');
     } on HttpException catch (error) {
-       var errorMessage = AppLocalizations.of(context).authenticationFailed;
+      var errorMessage = AppLocalizations.of(context).authenticationFailed;
       if (error.toString().contains('EMAIL_EXISTS')) {
         errorMessage = AppLocalizations.of(context).theEmailIsAlreadyInUse;
       } else if (error.toString().contains('INVALID_EMAIL')) {
@@ -129,10 +128,11 @@ class _AuthCardState extends State<AuthCard> {
       } else if (error.toString().contains('INVALID_PASSWORD')) {
         errorMessage = AppLocalizations.of(context).invalidPassword;
       }
-      
+
       _showErrorDialog(errorMessage);
     } catch (error) {
-      var errorMessage = AppLocalizations.of(context).couldNotAuthenticateYouPleasetryagain;
+      var errorMessage =
+          AppLocalizations.of(context).couldNotAuthenticateYouPleasetryagain;
       _showErrorDialog(errorMessage);
     }
 
@@ -157,9 +157,7 @@ class _AuthCardState extends State<AuthCard> {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Container(
-      
       child: Container(
-        
         width: deviceSize.width * 0.85,
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -173,12 +171,11 @@ class _AuthCardState extends State<AuthCard> {
                     color: Colors.white,
                     borderRadius: new BorderRadius.circular(5),
                   ),
-                  padding: EdgeInsets.only(left:15,right:15),
+                  padding: EdgeInsets.only(left: 15, right: 15),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      
                       labelText: AppLocalizations.of(context).email,
-                      border: InputBorder.none,  
+                      border: InputBorder.none,
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
@@ -192,19 +189,18 @@ class _AuthCardState extends State<AuthCard> {
                     },
                   ),
                 ),
-                SizedBox(height:10),
+                SizedBox(height: 10),
                 Container(
                   height: 60,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: new BorderRadius.circular(5),
                   ),
-                  padding: EdgeInsets.only(left:15,right:15),
+                  padding: EdgeInsets.only(left: 15, right: 15),
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context).password,
                       border: InputBorder.none,
-                      
                     ),
                     obscureText: true,
                     controller: _passwordController,
@@ -222,12 +218,15 @@ class _AuthCardState extends State<AuthCard> {
                 if (_authMode == AuthMode.Signup)
                   TextFormField(
                     enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(labelText: AppLocalizations.of(context).confirmPassword),
+                    decoration: InputDecoration(
+                        labelText:
+                            AppLocalizations.of(context).confirmPassword),
                     obscureText: true,
                     validator: _authMode == AuthMode.Signup
                         ? (value) {
                             if (value != _passwordController.text) {
-                              return AppLocalizations.of(context).passwordDoNotMatch;
+                              return AppLocalizations.of(context)
+                                  .passwordDoNotMatch;
                             }
                             return null;
                           }
@@ -240,8 +239,9 @@ class _AuthCardState extends State<AuthCard> {
                   CircularProgressIndicator()
                 else
                   RaisedButton(
-                    child:
-                        Text(_authMode == AuthMode.Login ? AppLocalizations.of(context).login : AppLocalizations.of(context).signup),
+                    child: Text(_authMode == AuthMode.Login
+                        ? AppLocalizations.of(context).login
+                        : AppLocalizations.of(context).signup),
                     onPressed: _submit,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -251,7 +251,6 @@ class _AuthCardState extends State<AuthCard> {
                     color: Theme.of(context).primaryColor,
                     textColor: Theme.of(context).primaryTextTheme.button.color,
                   ),
-                
               ],
             ),
           ),
