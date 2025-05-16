@@ -12,7 +12,8 @@ class Auth with ChangeNotifier {
   String _particularId;
   Timer _authTimer;
 
-  String _url_link = "https://www.codearistos.net/dev/hmz/v2/";
+  // String _url_link = "";
+  String _url_link = "https://codearistos.net/demo/multi-hms/";
 
   bool get isAuth {
     return _token != null;

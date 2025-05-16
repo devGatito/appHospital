@@ -5,6 +5,7 @@ import '../../auth/providers/auth.dart';
 import '../../dashboard/dashboard.dart';
 import '../../prescription/screens/user_prescriptions_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -389,11 +390,11 @@ class _PrescriptionDetailScreenState extends State<PrescriptionDetailScreen> {
                     Container(
                       width: MediaQuery.of(context).size.width * 1,
                       padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Text(
-                        "${response.data.symptom}",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
+                      child: Html(
+                        data: "${response.data.symptom}",
+                        // style: TextStyle(
+                        //   fontSize: 15,
+                        // ),
                       ),
                     ),
                     Divider(),
@@ -417,11 +418,11 @@ class _PrescriptionDetailScreenState extends State<PrescriptionDetailScreen> {
                     Container(
                       width: MediaQuery.of(context).size.width * 1,
                       padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Text(
-                        "${response.data.advice}",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
+                      child: Html(
+                        data: "${response.data.advice}",
+                        // style: TextStyle(
+                        //   fontSize: 15,
+                        // ),
                       ),
                     ),
                     Divider(),
@@ -445,11 +446,11 @@ class _PrescriptionDetailScreenState extends State<PrescriptionDetailScreen> {
                     Container(
                       width: MediaQuery.of(context).size.width * 1,
                       padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Text(
-                        "${response.data.note}",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
+                      child: Html(
+                        data: "${response.data.note}",
+                        // style: TextStyle(
+                        //   fontSize: 15,
+                        // ),
                       ),
                     ),
                     Divider(),
